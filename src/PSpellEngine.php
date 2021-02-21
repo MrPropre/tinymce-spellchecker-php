@@ -47,7 +47,7 @@ class PSpellEngine extends Engine
             $lang,
             $config['pspell.spelling'],
             $config['pspell.jargon'],
-            $config['pspell.encoding'],
+            $config['pspell.encoding'] ?: 'utf-8',
             $mode
 		);
 
@@ -57,8 +57,13 @@ class PSpellEngine extends Engine
 
         $out_words = [];
         foreach ($words as $word) {
-            if (!pspell_check($plink, trim($word))) {
-                $out_words[] = utf8_encode($word);
+            $word = trim($word);
+            if (!pspell_check($plink, $word)) {
+                $suggestions = pspell_suggest($plink, $word);
+                foreach ($suggestions as &$suggestion) {
+                    $suggestion = utf8_encode($suggestion);
+                }
+				$out_words[utf8_encode($word)] = $suggestions;
             }
         }
 
