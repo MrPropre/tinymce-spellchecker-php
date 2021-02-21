@@ -5,23 +5,27 @@ namespace TinyMCE\Spellchecker;
 use Exception;
 
 /**
- * Engine.php
- *
- * Copyright, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- *
  * Base class for all spellcheckers this takes in the words to check
  * spelling on and returns the suggestions.
+ *
+ * @author MrPropre
+ * @author TinyMCE
+ * @copyright Copyright, Moxiecode Systems AB
+ * @license http://www.tinymce.com/license LGPL License
  */
-
 class Engine
 {
 
+    /**
+     * @var array
+     * @static
+     */
     private static $engines = array();
-    private $config;
+
+    /**
+     * @var array
+     */
+    private $config = array();
 
     public function __constructor($config)
     {
@@ -31,9 +35,10 @@ class Engine
     /**
      * Spellchecks an array of words.
      *
-     * @param String $lang Selected language code (like en_US or de_DE). Shortcodes like "en" and "de" work with enchant >= 1.4.1
-     * @param Array $words Array of words to check.
-     * @return Name/value object with arrays of suggestions.
+     * @param string $lang Selected language code (like en_US or de_DE). Shortcodes like "en" and "de" work with enchant >= 1.4.1
+     * @param array $words Array of words to check.
+	 * 
+     * @return array Name/value object with arrays of suggestions.
      */
     public function getSuggestions($lang, $words)
     {
@@ -43,7 +48,7 @@ class Engine
     /**
      * Return true/false if the engine is supported by the server.
      *
-     * @return boolean True/false if the engine is supported.
+     * @return bool True/false if the engine is supported.
      */
     public function isSupported()
     {
@@ -53,7 +58,9 @@ class Engine
     /**
      * Sets the config array used to create the instance.
      *
-     * @param Array $config Name/value array with config options.
+     * @param array $config Name/value array with config options.
+	 * 
+	 * @return void
      */
     public function setConfig($config)
     {
@@ -63,15 +70,20 @@ class Engine
     /**
      * Returns the config array used to create the instance.
      *
-     * @return Array Name/value array with config options.
+     * @return array Name/value array with config options.
      */
     public function getConfig()
     {
         return $this->config;
     }
 
-    // Static methods
-
+	/**
+     * @param array $tinymce_spell_checker_config
+	 * 
+	 * @return void
+	 * 
+	 * @throws Exception
+     */
     public static function processRequest($tinymceSpellcheckerConfig)
     {
         $engine = self::get($tinymceSpellcheckerConfig["engine"]);
@@ -124,9 +136,10 @@ class Engine
     /**
      * Returns an request value by name without magic quoting.
      *
-     * @param String $name Name of parameter to get.
-     * @param String $default_value Default value to return if value not found.
-     * @return String request value by name without magic quoting or default value.
+     * @param string $name Name of parameter to get.
+     * @param string|bool $default_value Default value to return if value not found.
+	 * 
+     * @return string Request value by name without magic quoting or default value.
      */
     public static function getParam($name, $default_value = false)
     {
@@ -156,11 +169,22 @@ class Engine
         return $req[$name];
     }
 
+    /**
+     * @param string $name
+     * @param string $className
+	 * 
+	 * @return void
+     */
     public static function add($name, $className)
     {
         self::$engines[$name] = $className;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return string|null
+     */
     public static function get($name)
     {
         if (!isset(self::$engines[$name])) {
@@ -170,6 +194,11 @@ class Engine
         return self::$engines[$name];
     }
 
+	/**
+     * @param string $text
+     *
+     * @return array
+     */
     public static function getWords($text)
     {
         preg_match_all('(\w{3,})u', $text, $matches);

@@ -5,24 +5,25 @@ namespace TinyMCE\Spellchecker;
 use Exception;
 
 /**
- * PSpellEngine.php
+ * PSpell spellchecker.
  *
- * Copyright, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
+ * @author MrPropre
+ * @author TinyMCE
+ * @copyright Copyright, Moxiecode Systems AB
+ * @license http://www.tinymce.com/license LGPL License
  */
-
 class PSpellEngine extends Engine
 {
 
     /**
      * Spellchecks an array of words.
      *
-     * @param String $lang Selected language code (like en_US or de_DE). Shortcodes like "en" and "de" work with enchant >= 1.4.1
-     * @param Array $words Array of words to check.
-     * @return Name/value object with arrays of suggestions.
+     * @param string $lang Selected language code (like en_US or de_DE). Shortcodes like "en" and "de" work with enchant >= 1.4.1
+     * @param array $words Array of words to check.
+	 * 
+     * @return array Name/value object with arrays of suggestions.
+	 * 
+	 * @throws Exception
      */
     public function getSuggestions($lang, $words)
     {
@@ -57,7 +58,7 @@ class PSpellEngine extends Engine
     /**
      * Return true/false if the engine is supported by the server.
      *
-     * @return boolean True/false if the engine is supported.
+     * @return bool True/false if the engine is supported.
      */
     public function isSupported()
     {

@@ -16,19 +16,19 @@ use TinyMCE\Spellchecker\Engine;
 use TinyMCE\Spellchecker\EnchantEngine;
 use TinyMCE\Spellchecker\PSpellEngine;
 
-$tinymceSpellCheckerConfig = array(
-    "engine" => "enchant", // enchant, pspell
+$tinymce_spell_checker_config = [
+    'engine' => 'enchant', // enchant, pspell
 
     // Enchant options
-    "enchant_dicts_path" => "./dicts",
+    'enchant_dicts_path' => './dicts',
 
     // PSpell options
-    "pspell.mode" => "fast",
-    "pspell.spelling" => "",
-    "pspell.jargon" => "",
-    "pspell.encoding" => ""
-);
+    'pspell.mode' => 'fast',
+    'pspell.spelling' => '',
+    'pspell.jargon' => '',
+    'pspell.encoding' => ''
+];
 
 Engine::add("enchant", EnchantEngine::class);
 Engine::add("pspell", PSpellEngine::class);
-Engine::processRequest($tinymceSpellCheckerConfig);
+Engine::processRequest($tinymce_spell_checker_config);
