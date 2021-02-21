@@ -112,20 +112,20 @@ class Engine
 
                 $words = self::getWords($text);
 
-                echo json_encode((object) [
-                    'words' => (object) $engine->getSuggestions($lang, $words)
+                echo json_encode([
+                    'words' => $engine->getSuggestions($lang, $words)
                 ]);
             } catch (Exception $e) {
-                echo json_encode((object) [
+                echo json_encode([
                     'error' => $e->getMessage()
                 ]);
             }
         } elseif ($method) {
-            echo json_encode((object) [
+            echo json_encode([
                 'error' => 'Unsupported method: ' . $method
             ]);
         } else {
-            echo json_encode((object) [
+            echo json_encode([
                 'error' => 'Invalid JSON input'
             ]);
         }
