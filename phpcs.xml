@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ruleset name="PHP_CodeSniffer">
+    <description>The coding standard for TinyMCE Spellchecker.</description>
+
+    <file>src</file>
+
+    <arg value="np" />
+
+    <rule ref="PSR12" />
+
+</ruleset>
