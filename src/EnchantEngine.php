@@ -86,7 +86,7 @@ class EnchantEngine extends Engine
     private function normalizeLangCode($enchant, string $lang): string
     {
         $variants = [
-			'en' => ['en_US', 'en_GB'],
+            'en' => ['en_US', 'en_GB'],
             'fr' => ['fr_FR'],
         ];
 

@@ -49,7 +49,7 @@ class PSpellEngine extends Engine
             $config['pspell.jargon'],
             $config['pspell.encoding'] ?: 'utf-8',
             $mode
-		);
+        );
 
         if (!$plink) {
             throw new Exception('No PSpell link found opened.');
@@ -63,7 +63,7 @@ class PSpellEngine extends Engine
                 foreach ($suggestions as &$suggestion) {
                     $suggestion = utf8_encode($suggestion);
                 }
-				$out_words[utf8_encode($word)] = $suggestions;
+                $out_words[utf8_encode($word)] = $suggestions;
             }
         }
 
