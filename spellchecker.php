@@ -10,9 +10,11 @@
  * Contributing: http://www.tinymce.com/contributing
  */
 
-require('./includes/Engine.php');
-require('./includes/EnchantEngine.php');
-require('./includes/PSpellEngine.php');
+require_once 'vendor/autoload.php';
+
+use TinyMCE\Spellchecker\Engine;
+use TinyMCE\Spellchecker\EnchantEngine;
+use TinyMCE\Spellchecker\PSpellEngine;
 
 $tinymceSpellCheckerConfig = array(
     "engine" => "enchant", // enchant, pspell
@@ -27,4 +29,6 @@ $tinymceSpellCheckerConfig = array(
     "pspell.encoding" => ""
 );
 
-TinyMCE_Spellchecker_Engine::processRequest($tinymceSpellCheckerConfig);
+Engine::add("enchant", EnchantEngine::class);
+Engine::add("pspell", PSpellEngine::class);
+Engine::processRequest($tinymceSpellCheckerConfig);

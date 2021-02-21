@@ -1,5 +1,9 @@
 <?php
 
+namespace TinyMCE\Spellchecker;
+
+use Exception;
+
 /**
  * PSpellEngine.php
  *
@@ -10,7 +14,7 @@
  * Contributing: http://www.tinymce.com/contributing
  */
 
-class TinyMCE_SpellChecker_PSpellEngine extends TinyMCE_SpellChecker_Engine
+class PSpellEngine extends Engine
 {
 
     /**
@@ -60,5 +64,3 @@ class TinyMCE_SpellChecker_PSpellEngine extends TinyMCE_SpellChecker_Engine
         return function_exists("pspell_new");
     }
 }
-
-TinyMCE_Spellchecker_Engine::add("pspell", "TinyMCE_SpellChecker_PSpellEngine");

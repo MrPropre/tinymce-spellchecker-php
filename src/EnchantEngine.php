@@ -1,5 +1,9 @@
 <?php
 
+namespace TinyMCE\Spellchecker;
+
+use Exception;
+
 /**
  * EnchantEngine.php
  *
@@ -10,7 +14,7 @@
  * Contributing: http://www.tinymce.com/contributing
  */
 
-class TinyMCE_SpellChecker_EnchantEngine extends TinyMCE_SpellChecker_Engine
+class EnchantEngine extends Engine
 {
 
     /**
@@ -85,5 +89,3 @@ class TinyMCE_SpellChecker_EnchantEngine extends TinyMCE_SpellChecker_Engine
         return $lang;
     }
 }
-
-TinyMCE_Spellchecker_Engine::add("enchant", "TinyMCE_SpellChecker_EnchantEngine");

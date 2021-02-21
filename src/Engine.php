@@ -1,5 +1,9 @@
 <?php
 
+namespace TinyMCE\Spellchecker;
+
+use Exception;
+
 /**
  * Engine.php
  *
@@ -13,7 +17,7 @@
  * spelling on and returns the suggestions.
  */
 
-class TinyMCE_SpellChecker_Engine
+class Engine
 {
 
     private static $engines = array();
