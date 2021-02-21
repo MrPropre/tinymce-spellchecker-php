@@ -25,7 +25,7 @@ class PSpellEngine extends Engine
      *
      * @throws Exception
      */
-    public function getSuggestions($lang, $words)
+    public function getSuggestions(string $lang, array $words): array
     {
         $config = $this->getConfig();
         switch ($config['PSpell.mode']) {
@@ -60,7 +60,7 @@ class PSpellEngine extends Engine
      *
      * @return bool True/false if the engine is supported.
      */
-    public function isSupported()
+    public function isSupported(): bool
     {
         return function_exists("pspell_new");
     }

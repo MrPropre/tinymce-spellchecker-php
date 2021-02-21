@@ -25,7 +25,7 @@ class EnchantEngine extends Engine
      *
      * @throws Exception
      */
-    public function getSuggestions($lang, $words)
+    public function getSuggestions(string $lang, array $words): array
     {
         $suggestions = array();
         $enchant = enchant_broker_init();
@@ -68,7 +68,7 @@ class EnchantEngine extends Engine
      *
      * @return bool True/false if the engine is supported.
      */
-    public function isSupported()
+    public function isSupported(): bool
     {
         return function_exists("enchant_broker_init");
     }
@@ -79,7 +79,7 @@ class EnchantEngine extends Engine
      *
      * @return string
      */
-    private function normalizeLangCode($enchant, $lang)
+    private function normalizeLangCode($enchant, string $lang): string
     {
         $variants = array(
             "en" => array("en_US", "en_GB")

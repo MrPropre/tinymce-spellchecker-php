@@ -27,7 +27,7 @@ class Engine
      */
     private $config = array();
 
-    public function __constructor($config)
+    public function __construct(array $config)
     {
         $this->config = $config;
     }
@@ -40,7 +40,7 @@ class Engine
      *
      * @return array Name/value object with arrays of suggestions.
      */
-    public function getSuggestions($lang, $words)
+    public function getSuggestions(string $lang, array $words): array
     {
         return array();
     }
@@ -50,7 +50,7 @@ class Engine
      *
      * @return bool True/false if the engine is supported.
      */
-    public function isSupported()
+    public function isSupported(): bool
     {
         return true;
     }
@@ -62,7 +62,7 @@ class Engine
      *
      * @return void
      */
-    public function setConfig($config)
+    public function setConfig(array $config): void
     {
         $this->config = $config;
     }
@@ -72,7 +72,7 @@ class Engine
      *
      * @return array Name/value array with config options.
      */
-    public function getConfig()
+    public function getConfig(): array
     {
         return $this->config;
     }
@@ -84,7 +84,7 @@ class Engine
      *
      * @throws Exception
      */
-    public static function processRequest($tinymceSpellcheckerConfig)
+    public static function processRequest(array $tinymceSpellcheckerConfig): void
     {
         $engine = self::get($tinymceSpellcheckerConfig["engine"]);
         $engine = new $engine();
@@ -141,7 +141,7 @@ class Engine
      *
      * @return string Request value by name without magic quoting or default value.
      */
-    public static function getParam($name, $default_value = false)
+    public static function getParam(string $name, $default_value = false): string
     {
         if (isset($_POST[$name])) {
             $req = $_POST;
@@ -175,7 +175,7 @@ class Engine
      *
      * @return void
      */
-    public static function add($name, $className)
+    public static function add(string $name, string $className): void
     {
         self::$engines[$name] = $className;
     }
@@ -185,7 +185,7 @@ class Engine
      *
      * @return string|null
      */
-    public static function get($name)
+    public static function get(string $name): ?string
     {
         if (!isset(self::$engines[$name])) {
             return null;
@@ -199,7 +199,7 @@ class Engine
      *
      * @return array
      */
-    public static function getWords($text)
+    public static function getWords(string $text): array
     {
         preg_match_all('(\w{3,})u', $text, $matches);
         $words = $matches[0];

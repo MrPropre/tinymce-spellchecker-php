@@ -1,13 +1,12 @@
 <?php
 
 /**
- * spellcheck.php
+ * Example code.
  *
- * Copyright, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
+ * @author MrPropre
+ * @author TinyMCE
+ * @copyright Copyright, Moxiecode Systems AB
+ * @license http://www.tinymce.com/license LGPL License
  */
 
 require_once 'vendor/autoload.php';
@@ -15,6 +14,9 @@ require_once 'vendor/autoload.php';
 use TinyMCE\Spellchecker\Engine;
 use TinyMCE\Spellchecker\EnchantEngine;
 use TinyMCE\Spellchecker\PSpellEngine;
+
+Engine::add('enchant', EnchantEngine::class);
+Engine::add('pspell', PSpellEngine::class);
 
 $tinymce_spell_checker_config = [
     'engine' => 'enchant', // enchant, pspell
@@ -29,6 +31,4 @@ $tinymce_spell_checker_config = [
     'pspell.encoding' => ''
 ];
 
-Engine::add("enchant", EnchantEngine::class);
-Engine::add("pspell", PSpellEngine::class);
 Engine::processRequest($tinymce_spell_checker_config);
