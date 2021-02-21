@@ -2,7 +2,7 @@
     "name": "mrpropre/tinymce-spellchecker",
     "description": "PHP Backend for TinyMCE spellchecker plugin, with Enchant & PSpell engines support.",
     "type": "library",
-    "license": "LGPL-3.0-only",
+    "license": "LGPL-2.1-or-later",
     "autoload": {
         "psr-4": {
             "TinyMCE\\Spellchecker\\": "src/"
