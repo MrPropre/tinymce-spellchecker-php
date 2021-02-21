@@ -9,7 +9,7 @@
  * @license http://www.tinymce.com/license LGPL License
  */
 
-require_once 'vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use TinyMCE\Spellchecker\Engine;
 use TinyMCE\Spellchecker\EnchantEngine;
