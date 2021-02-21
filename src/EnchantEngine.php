@@ -27,26 +27,30 @@ class EnchantEngine extends Engine
      */
     public function getSuggestions(string $lang, array $words): array
     {
-        $suggestions = array();
+        $suggestions = [];
         $enchant = enchant_broker_init();
         $config = $this->getConfig();
-        if (isset($config["enchant_dicts_path"])) {
-            enchant_broker_set_dict_path($enchant, ENCHANT_MYSPELL, $config["enchant_dicts_path"]);
-            enchant_broker_set_dict_path($enchant, ENCHANT_ISPELL, $config["enchant_dicts_path"]);
+
+        if (isset($config['enchant_dicts_path'])) {
+            enchant_broker_set_dict_path($enchant, ENCHANT_MYSPELL, $config['enchant_dicts_path']);
+            enchant_broker_set_dict_path($enchant, ENCHANT_ISPELL, $config['enchant_dicts_path']);
         }
 
         if (!enchant_broker_describe($enchant)) {
-            throw new Exception("Enchant spellchecker not find any backends.");
+            throw new Exception('Enchant spellchecker not find any backends.');
         }
 
         $lang = $this->normalizeLangCode($enchant, $lang);
+
         if (enchant_broker_dict_exists($enchant, $lang)) {
             $dict = enchant_broker_request_dict($enchant, $lang);
+
             foreach ($words as $word) {
                 if (!enchant_dict_check($dict, $word)) {
                     $suggs = enchant_dict_suggest($dict, $word);
+
                     if (!is_array($suggs)) {
-                        $suggs = array();
+                        $suggs = [];
                     }
 
                     $suggestions[$word] = $suggs;
@@ -57,7 +61,7 @@ class EnchantEngine extends Engine
             enchant_broker_free($enchant);
         } else {
             enchant_broker_free($enchant);
-            throw new Exception("Enchant spellchecker could not find dictionary for language: " . $lang);
+            throw new Exception('Enchant spellchecker could not find dictionary for language: ' . $lang);
         }
 
         return $suggestions;
@@ -70,7 +74,7 @@ class EnchantEngine extends Engine
      */
     public function isSupported(): bool
     {
-        return function_exists("enchant_broker_init");
+        return function_exists('enchant_broker_init');
     }
 
     /**
@@ -81,11 +85,13 @@ class EnchantEngine extends Engine
      */
     private function normalizeLangCode($enchant, string $lang): string
     {
-        $variants = array(
-            "en" => array("en_US", "en_GB")
-        );
+        $variants = [
+			'en' => ['en_US', 'en_GB'],
+        ];
+
         if (isset($variants[$lang])) {
             array_unshift($variants, $lang);
+
             foreach ($variants[$lang] as $variant) {
                 if (enchant_broker_dict_exists($enchant, $variant)) {
                     return $variant;

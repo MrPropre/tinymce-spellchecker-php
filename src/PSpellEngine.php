@@ -28,31 +28,41 @@ class PSpellEngine extends Engine
     public function getSuggestions(string $lang, array $words): array
     {
         $config = $this->getConfig();
-        switch ($config['PSpell.mode']) {
-            case "fast":
+
+        switch ($config['pspell.mode']) {
+            case 'fast':
                 $mode = PSPELL_FAST;
                 break;
-            case "slow":
+
+            case 'slow':
                 $mode = PSPELL_SLOW;
                 break;
+
             default:
                 $mode = PSPELL_NORMAL;
         }
 
         // Setup PSpell link
-        $plink = pspell_new($lang, $config['pspell.spelling'], $config['pspell.jargon'], $config['pspell.encoding'], $mode);
+        $plink = pspell_new(
+            $lang,
+            $config['pspell.spelling'],
+            $config['pspell.jargon'],
+            $config['pspell.encoding'],
+            $mode
+		);
+
         if (!$plink) {
-            throw new Exception("No PSpell link found opened.");
+            throw new Exception('No PSpell link found opened.');
         }
 
-        $outWords = array();
+        $out_words = [];
         foreach ($words as $word) {
             if (!pspell_check($plink, trim($word))) {
-                $outWords[] = utf8_encode($word);
+                $out_words[] = utf8_encode($word);
             }
         }
 
-        return $outWords;
+        return $out_words;
     }
 
     /**
@@ -62,6 +72,6 @@ class PSpellEngine extends Engine
      */
     public function isSupported(): bool
     {
-        return function_exists("pspell_new");
+        return function_exists('pspell_new');
     }
 }

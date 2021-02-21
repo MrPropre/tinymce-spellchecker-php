@@ -20,12 +20,12 @@ class Engine
      * @var array
      * @static
      */
-    private static $engines = array();
+    private static $engines = [];
 
     /**
      * @var array
      */
-    private $config = array();
+    private $config = [];
 
     public function __construct(array $config)
     {
@@ -42,7 +42,7 @@ class Engine
      */
     public function getSuggestions(string $lang, array $words): array
     {
-        return array();
+        return [];
     }
 
     /**
@@ -84,52 +84,52 @@ class Engine
      *
      * @throws Exception
      */
-    public static function processRequest(array $tinymceSpellcheckerConfig): void
+    public static function processRequest(array $tinymce_spell_checker_config): void
     {
-        $engine = self::get($tinymceSpellcheckerConfig["engine"]);
+        $engine = self::get($tinymce_spell_checker_config['engine']);
         $engine = new $engine();
-        $engine->setConfig($tinymceSpellcheckerConfig);
+        $engine->setConfig($tinymce_spell_checker_config);
 
         header('Content-Type: application/json');
         header('Content-Encoding: UTF-8');
-        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-        header("Cache-Control: no-store, no-cache, must-revalidate");
-        header("Cache-Control: post-check=0, pre-check=0", false);
-        header("Pragma: no-cache");
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        header('Cache-Control: no-store, no-cache, must-revalidate');
+        header('Cache-Control: post-check=0, pre-check=0', false);
+        header('Pragma: no-cache');
 
-        $method = self::getParam("method", "spellcheck");
-        $lang = self::getParam("lang", "en_US");
-        $text = self::getParam("text");
+        $method = self::getParam('method', 'spellcheck');
+        $lang = self::getParam('lang', 'en_US');
+        $text = self::getParam('text');
 
-        if ($method == "spellcheck") {
+        if ($method === 'spellcheck') {
             try {
                 if (!$text) {
-                    throw new Exception("Missing input parameter 'text'.");
+                    throw new Exception('Missing input parameter "text".');
                 }
 
                 if (!$engine->isSupported()) {
-                    throw new Exception("Current spellchecker isn't supported.");
+                    throw new Exception('Current spellchecker isn\'t supported.');
                 }
 
                 $words = self::getWords($text);
 
-                echo json_encode((object) array(
-                    "words" => (object) $engine->getSuggestions($lang, $words)
-                ));
+                echo json_encode((object) [
+                    'words' => (object) $engine->getSuggestions($lang, $words)
+                ]);
             } catch (Exception $e) {
-                echo json_encode((object) array(
-                    "error" => $e->getMessage()
-                ));
+                echo json_encode((object) [
+                    'error' => $e->getMessage()
+                ]);
             }
-        } else if ($method) {
-            echo json_encode((object) array(
-                "error" => "Unsupported method: " . $method
-            ));
+        } elseif ($method) {
+            echo json_encode((object) [
+                'error' => 'Unsupported method: ' . $method
+            ]);
         } else {
-            echo json_encode((object) array(
-                "error" => "Invalid JSON input"
-            ));
+            echo json_encode((object) [
+                'error' => 'Invalid JSON input'
+            ]);
         }
     }
 
@@ -145,16 +145,16 @@ class Engine
     {
         if (isset($_POST[$name])) {
             $req = $_POST;
-        } else if (isset($_GET[$name])) {
+        } elseif (isset($_GET[$name])) {
             $req = $_GET;
         } else {
             return $default_value;
         }
 
         // Handle magic quotes
-        if (ini_get("magic_quotes_gpc")) {
+        if (ini_get('magic_quotes_gpc')) {
             if (is_array($req[$name])) {
-                $out = array();
+                $out = [];
 
                 foreach ($req[$name] as $name => $value) {
                     $out[stripslashes($name)] = stripslashes($value);
@@ -171,13 +171,13 @@ class Engine
 
     /**
      * @param string $name
-     * @param string $className
+     * @param string $class_name
      *
      * @return void
      */
-    public static function add(string $name, string $className): void
+    public static function add(string $name, string $class_name): void
     {
-        self::$engines[$name] = $className;
+        self::$engines[$name] = $class_name;
     }
 
     /**
