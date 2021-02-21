@@ -87,8 +87,7 @@ class Engine
     public static function processRequest(array $tinymce_spell_checker_config): void
     {
         $engine = self::get($tinymce_spell_checker_config['engine']);
-        $engine = new $engine();
-        $engine->setConfig($tinymce_spell_checker_config);
+        $engine = new $engine($tinymce_spell_checker_config);
 
         header('Content-Type: application/json');
         header('Content-Encoding: UTF-8');
@@ -105,7 +104,7 @@ class Engine
         if ($method === 'spellcheck') {
             try {
                 if (!$text) {
-                    throw new Exception('Missing input parameter "text".');
+                    throw new Exception('Missing input parameter \'text\'.');
                 }
 
                 if (!$engine->isSupported()) {
