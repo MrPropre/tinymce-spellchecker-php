@@ -87,6 +87,7 @@ class EnchantEngine extends Engine
     {
         $variants = [
 			'en' => ['en_US', 'en_GB'],
+            'fr' => ['fr_FR'],
         ];
 
         if (isset($variants[$lang])) {
