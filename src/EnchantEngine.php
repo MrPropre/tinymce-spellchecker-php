@@ -20,10 +20,10 @@ class EnchantEngine extends Engine
      *
      * @param string $lang Selected language code (like en_US or de_DE). Shortcodes like "en" and "de" work with enchant >= 1.4.1
      * @param array $words Array of words to check.
-	 * 
+     *
      * @return array Name/value object with arrays of suggestions.
-	 * 
-	 * @throws Exception
+     *
+     * @throws Exception
      */
     public function getSuggestions($lang, $words)
     {

@@ -37,7 +37,7 @@ class Engine
      *
      * @param string $lang Selected language code (like en_US or de_DE). Shortcodes like "en" and "de" work with enchant >= 1.4.1
      * @param array $words Array of words to check.
-	 * 
+     *
      * @return array Name/value object with arrays of suggestions.
      */
     public function getSuggestions($lang, $words)
@@ -59,8 +59,8 @@ class Engine
      * Sets the config array used to create the instance.
      *
      * @param array $config Name/value array with config options.
-	 * 
-	 * @return void
+     *
+     * @return void
      */
     public function setConfig($config)
     {
@@ -77,12 +77,12 @@ class Engine
         return $this->config;
     }
 
-	/**
+    /**
      * @param array $tinymce_spell_checker_config
-	 * 
-	 * @return void
-	 * 
-	 * @throws Exception
+     *
+     * @return void
+     *
+     * @throws Exception
      */
     public static function processRequest($tinymceSpellcheckerConfig)
     {
@@ -138,7 +138,7 @@ class Engine
      *
      * @param string $name Name of parameter to get.
      * @param string|bool $default_value Default value to return if value not found.
-	 * 
+     *
      * @return string Request value by name without magic quoting or default value.
      */
     public static function getParam($name, $default_value = false)
@@ -172,8 +172,8 @@ class Engine
     /**
      * @param string $name
      * @param string $className
-	 * 
-	 * @return void
+     *
+     * @return void
      */
     public static function add($name, $className)
     {
@@ -194,7 +194,7 @@ class Engine
         return self::$engines[$name];
     }
 
-	/**
+    /**
      * @param string $text
      *
      * @return array
