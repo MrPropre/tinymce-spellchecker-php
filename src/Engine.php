@@ -202,7 +202,7 @@ class Engine
     {
         preg_match_all('(\w{3,})u', $text, $matches);
         $words = $matches[0];
-        
+
         // Exclude words with numbers in them
         foreach ($words as $index => $word) {
             if (preg_match('/[0-9]+/', $word)) {
@@ -211,11 +211,11 @@ class Engine
         }
 
         // Exclude ignored words
-		foreach ($ignored_words as $index => $ignored_word) {
-			if (in_array($ignored_word, $words)) {
+        foreach ($ignored_words as $index => $ignored_word) {
+            if (in_array($ignored_word, $words)) {
                 array_splice($words, $index, 1);
-			}
-		}
+            }
+        }
 
         return $words;
     }
