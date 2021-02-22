@@ -110,7 +110,7 @@ class Engine
                     throw new Exception('Current spellchecker isn\'t supported.');
                 }
 
-                $words = self::getWords($text);
+                $words = self::getWords($text, $tinymce_spell_checker_config['ignored_words'] ?? []);
 
                 echo json_encode([
                     'words' => $engine->getSuggestions($lang, $words)
@@ -194,20 +194,28 @@ class Engine
 
     /**
      * @param string $text
+     * @param array $ignored_words Optional ignored words list
      *
      * @return array
      */
-    public static function getWords(string $text): array
+    public static function getWords(string $text, array $ignored_words = []): array
     {
         preg_match_all('(\w{3,})u', $text, $matches);
         $words = $matches[0];
-
-        for ($i = count($words) - 1; $i >= 0; $i--) {
-            // Exclude words with numbers in them
-            if (preg_match('/[0-9]+/', $words[$i])) {
-                array_splice($words, $i, 1);
+        
+        // Exclude words with numbers in them
+        foreach ($words as $index => $word) {
+            if (preg_match('/[0-9]+/', $word)) {
+                array_splice($words, $index, 1);
             }
         }
+
+        // Exclude ignored words
+		foreach ($ignored_words as $index => $ignored_word) {
+			if (in_array($ignored_word, $words)) {
+                array_splice($words, $index, 1);
+			}
+		}
 
         return $words;
     }

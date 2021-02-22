@@ -20,6 +20,7 @@ Engine::add('pspell', PSpellEngine::class);
 
 $tinymce_spell_checker_config = [
     'engine' => 'enchant', // enchant, pspell
+    'ignored_words' => [],
 
     // Enchant options
     'enchant_dicts_path' => './dicts',
