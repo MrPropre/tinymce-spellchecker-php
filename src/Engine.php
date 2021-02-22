@@ -9,9 +9,9 @@ use Exception;
  * spelling on and returns the suggestions.
  *
  * @author MrPropre
- * @author TinyMCE
- * @copyright Copyright, Moxiecode Systems AB
- * @license http://www.tinymce.com/license LGPL License
+ * @author Johan Sörlin <johan.sorlin@tiny.cloud>
+ * @copyright Copyright, Tiny Technologies
+ * @license http://www.tiny.cloud/license GNU Lesser General Public License v2.1
  */
 class Engine
 {
