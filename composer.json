@@ -3,6 +3,25 @@
     "description": "PHP Backend for TinyMCE spellchecker plugin, with Enchant & PSpell engines support.",
     "type": "library",
     "license": "LGPL-2.1-or-later",
+    "homepage": "https://github.com/MrPropre/tinymce-spellchecker-php",
+    "keywords": [
+        "tinymce",
+        "spellchecker",
+        "spellcheck",
+        "spell",
+        "enchant",
+        "pspell"
+    ],
+    "authors": [
+        {
+            "name": "MrPropre",
+            "homepage": "https://github.com/MrPropre"
+        },
+        {
+            "name": "Johan Sörlin",
+            "email": "johan.sorlin@tiny.cloud"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "TinyMCE\\Spellchecker\\": "src/"
@@ -17,5 +36,8 @@
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5"
+    },
+    "config": {
+        "sort-packages": true
     }
 }
